@@ -1,52 +1,26 @@
-#include <pthread.h>
-#include <cstdio>
-#include <unistd.h>
-#include <cstring>
+import sys
 
-using namespace std;
+def modulus(num, up):
+    global DIV
 
-void* doSomething(void *position) {
-	int *change = (int*)position;
+    if up == 1:
+        return num
+    if up == 0:
+        return 1;
 
-	printf("before change to 10 [%p]\n", change);
-	(*change) = 10;
-	printf("after change to 10 [%p][%d]\n", change, *change);
-	sleep(5);
-	printf("before change to 100 [%p]\n", change);
-	(*change) = 100;
-	printf("after change to 100 [%p][%d]\n", change, *change);
-}
+    tmp = modulus(num, up // 2)
+    if up % 2:
+        return (((tmp * tmp) % DIV) * num) % DIV
+    else:
+        return (tmp * tmp) % DIV
 
-int main() {
+DIV = 1000000007
+n, k = map(int, sys.stdin.readline().split())
+factorial = [1]
+for i in range(1, 4000001):
+    factorial.append((i * factorial[-1]) % DIV)
 
-	pthread_t t;
-	int *pos = new int;
-	printf("pos address[%p][%d]\n", pos, *pos);
+upper = factorial[n]
+lower = factorial[k] * factorial[n - k]
 
-	pthread_create(&t, NULL, &doSomething, pos); 
-
-	sleep(2);
-
-	delete pos;
-
-	const char *const arr = new char[4];
-	for(int i = 0; i < 4; i++) {
-		printf("[%p][%x]\n", &arr[i], arr[i]);
-	}
-
-	pthread_join(t, NULL);
-
-	for(int i = 0; i < 4; i++) {
-		printf("[%p][%x]\n", &arr[i], arr[i]);
-	}
-
-	delete[] arr;
-
-
-	char *ptr = new char;
-	printf("[%p][%c]\n", ptr, *ptr);
-	printf("[%p][%c]\n", ptr + 100, *(ptr + 100));
-	delete ptr;
-
-	return 0;
-}
+print(((upper % DIV) * modulus(lower, DIV - 2)) % DIV)
