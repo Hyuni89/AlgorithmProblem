@@ -16,7 +16,7 @@
 
 ## Solution  
 1. 이항계수  
-<sub>n</sub>C<sub>k</sub> = $\frac{n!}{(n-k)!k!}$  
+<sub>n</sub>C<sub>k</sub> = $$$\frac{n!}{(n-k)!k!}$$$  
 
 ## Link  
 [11401 Binomial Coefficient 3](https://www.acmicpc.net/problem/11401)  
