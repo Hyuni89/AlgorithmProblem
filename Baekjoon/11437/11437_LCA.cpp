@@ -6,16 +6,18 @@ using namespace std;
 
 int n, m;
 
-void makeTree(int *tree, vector<int> *rel) {
-	stack<int> st;
+void makeTree(int *tree, int *depth, vector<int> *rel) {
+	stack<pair<int, int> > st;
 	bool check[n + 1] = {0, };
 	int root = 1;
 
 	check[1] = true;
-	st.push(1);
+	depth[1] = 0;
+	st.push(make_pair(root, 0));
 
 	do {
-		root = st.top();
+		pair<int, int> tmp = st.top();
+		root = tmp.first;
 		st.pop();
 		
 		for(int i = 0; i < rel[root].size(); i++) {
@@ -23,7 +25,8 @@ void makeTree(int *tree, vector<int> *rel) {
 			
 			if(!check[next]) {
 				tree[next] = root;
-				st.push(next);
+				depth[next] = tmp.second + 1;
+				st.push(make_pair(next, tmp.second + 1));
 				check[next] = true;
 			}
 		}
@@ -43,31 +46,31 @@ int main() {
 	}
 
 	int tree[n + 1];
+	int depth[n + 1];
 	for(int i = 0; i < n + 1; i++) {
 		tree[i] = -1;
+		depth[i] = -1;
 	}
-	makeTree(tree, tmp);
+	depth[1] = 0;
+	makeTree(tree, depth, tmp);
 
 	scanf("%d", &m);
 	for(int i = 0; i < m; i++) {
 		int a, b;
 		scanf("%d %d", &a, &b);
 		
-		bool flag[n + 1] = {0, };
-		flag[a] = true;
-		while(tree[a] != -1) {
-			a = tree[a];
-			flag[a] = true;
-		}
-
-		do {
-			if(flag[b]) {
-				printf("%d\n", b);
-				break;
+		while(depth[a] != depth[b]) {
+			if(depth[a] > depth[b]) {
+				a = tree[a];
+			} else {
+				b = tree[b];
 			}
-
+		}
+		while(a != b) {
+			a = tree[a];
 			b = tree[b];
-		} while(b != -1);
+		}
+		printf("%d\n", a);
 	}
 
 	return 0;

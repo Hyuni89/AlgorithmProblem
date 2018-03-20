@@ -46,3 +46,7 @@ Tree에서 두 Node의 공통 Root Node를 구한다.
 
 ## Link  
 [11437 LCA](https://www.acmicpc.net/problem/11437)
+
+## Warning  
+기존 코드로 재체점에 들어가니 시간초과가 발생  
+depth를 사용하지 않은 코드...  
