@@ -21,3 +21,7 @@ N개씩 4개의 숫자가 주워질 때, 각각의 4개의 숫자를 더해 합�
 ## Solution  
 A, B배열에서 나올수 있는 모든 합을 AB배열에 저장. C, D배열에서 나올 수 있는 모든 합을 CD배열에 저장. 그리고 AB배열에서 하나씩 꺼내 CD배열에서 합이 0이 되는 upper bound와 lower bound를 구한다. 정말 생각하지 못한방법...  
 시간 복잡도는 O(N<sup>2</sup>log<sub>2</sub>N)이 된다.  
+
+## Link  
+[7453 Four Value Whose Sum Zero](https://www.acmicpc.net/problem/7453)  
+
